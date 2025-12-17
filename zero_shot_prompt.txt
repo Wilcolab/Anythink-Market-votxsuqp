@@ -6,3 +6,4 @@ function toSnakeCase(text) {
 }
 
 module.exports = toSnakeCase;
+
