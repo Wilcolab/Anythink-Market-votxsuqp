@@ -143,3 +143,4 @@ console.log(toDotCase('real_HOUSE_wives', '_')); // real.house.wives
 console.log(toDotCase('real-house-wives', '-')); // real.house.wives
 console.log(toDotCase('real house wives', ' ')); // real.house.wives
 
+//
