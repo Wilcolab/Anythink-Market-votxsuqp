@@ -19,3 +19,6 @@ function toCamelCase(str) {
     // Implementation goes here
 }
 
+function divNumber(a, b) {
+    return a / b;
+}
