@@ -1,0 +1,144 @@
+/**
+ * Converts a string to camelCase format.
+ * 
+ * @function toCamelCase
+ * @param {string} str - The input string to convert. Must contain only alphanumeric characters, hyphens, underscores, or spaces.
+ * @param {string} [separator='_'] - The separator character used to split the string. Must be one of: hyphen (-), underscore (_), or space ( ).
+ * @returns {string} The converted camelCase string where the first part is lowercase and subsequent parts are capitalized.
+ * 
+ * @throws {Error} If the separator is not one of the valid options (hyphen, underscore, or space).
+ * @throws {Error} If the string contains invalid characters (anything other than alphanumeric, hyphens, underscores, or spaces).
+ * @throws {Error} If the string has leading or trailing whitespace.
+ * @throws {Error} If there are consecutive spaces or a space not followed by a character.
+ * @throws {Error} If the string is empty or contains only separators.
+ * 
+ * @example
+ * toCamelCase('real_HOUSE_wives', '_'); // returns 'realHouseWives'
+ * @example
+ * toCamelCase('real-house-wives', '-'); // returns 'realHouseWives'
+ * @example
+ * toCamelCase('real house wives', ' '); // returns 'realHouseWives'
+ */
+
+/**
+ * Converts a string to dot.case format.
+ * 
+ * @function toDotCase
+ * @param {string} str - The input string to convert. Must contain only alphanumeric characters, hyphens, underscores, or spaces.
+ * @param {string} [separator='_'] - The separator character used to split the string. Must be one of: hyphen (-), underscore (_), or space ( ).
+ * @returns {string} The converted dot.case string where all parts are lowercase and joined by dots.
+ * 
+ * @throws {Error} If the separator is not one of the valid options (hyphen, underscore, or space).
+ * @throws {Error} If the string contains invalid characters (anything other than alphanumeric, hyphens, underscores, or spaces).
+ * @throws {Error} If the string has leading or trailing whitespace.
+ * @throws {Error} If there are consecutive spaces or a space not followed by a character.
+ * @throws {Error} If the string is empty or contains only separators.
+ * 
+ * @example
+ * toDotCase('real_HOUSE_wives', '_'); // returns 'real.house.wives'
+ * @example
+ * toDotCase('real-house-wives', '-'); // returns 'real.house.wives'
+ * @example
+ * toDotCase('real house wives', ' '); // returns 'real.house.wives'
+ */
+function toCamelCase(str, separator = '_') {
+    // Validate separator
+    const validSeparators = ['-', '_', ' '];
+    if (!validSeparators.includes(separator)) {
+        throw new Error(
+            `Invalid separator: '${separator}'. Must be one of: hyphen (-), underscore (_), or space ( ).`
+        );
+    }
+
+    // Check for invalid separators in the string
+    const invalidChars = str.match(/[^a-zA-Z0-9_\-\s]/g);
+    if (invalidChars) {
+        throw new Error(
+            `Invalid characters found: ${[...new Set(invalidChars)].join(', ')}. Only alphanumeric characters, hyphens, underscores, and spaces are allowed.`
+        );
+    }
+
+    // Handle trailing or leading spaces
+    if (str.match(/^\s+|\s+$/)) {
+        throw new Error('String cannot have leading or trailing spaces.');
+    }
+
+    // Handle space not followed by a character
+    if (str.match(/\s+(?=\s|$)/)) {
+        throw new Error('Space must be followed by a character.');
+    }
+
+    // Split by separator and process
+    const parts = str.split(separator).filter(part => part.length > 0);
+
+    if (parts.length === 0) {
+        throw new Error('String is empty or contains only separators.');
+    }
+
+    // Convert to camelCase
+    return parts
+        .map((part, index) => {
+            if (index === 0) {
+                return part.toLowerCase();
+            }
+            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        })
+        .join('');
+}
+
+// Example usage:
+console.log(toCamelCase('real_HOUSE_wives', '_')); // realHouseWives
+console.log(toCamelCase('real-house-wives', '-')); // realHouseWives
+console.log(toCamelCase('real house wives', ' ')); // realHouseWives
+
+// Error cases:
+try {
+    toCamelCase('real; housE~Wives', '_');
+} catch (e) {
+    console.error(e.message);
+}
+
+function toDotCase(str, separator = '_') {
+    // Validate separator
+    const validSeparators = ['-', '_', ' '];
+    if (!validSeparators.includes(separator)) {
+        throw new Error(
+            `Invalid separator: '${separator}'. Must be one of: hyphen (-), underscore (_), or space ( ).`
+        );
+    }
+
+    // Check for invalid separators in the string
+    const invalidChars = str.match(/[^a-zA-Z0-9_\-\s]/g);
+    if (invalidChars) {
+        throw new Error(
+            `Invalid characters found: ${[...new Set(invalidChars)].join(', ')}. Only alphanumeric characters, hyphens, underscores, and spaces are allowed.`
+        );
+    }
+
+    // Handle trailing or leading spaces
+    if (str.match(/^\s+|\s+$/)) {
+        throw new Error('String cannot have leading or trailing spaces.');
+    }
+
+    // Handle space not followed by a character
+    if (str.match(/\s+(?=\s|$)/)) {
+        throw new Error('Space must be followed by a character.');
+    }
+
+    // Split by separator and process
+    const parts = str.split(separator).filter(part => part.length > 0);
+
+    if (parts.length === 0) {
+        throw new Error('String is empty or contains only separators.');
+    }
+
+    // Convert to dot.case
+    return parts
+        .map(part => part.toLowerCase())
+        .join('.');
+}
+
+// Example usage:
+console.log(toDotCase('real_HOUSE_wives', '_')); // real.house.wives
+console.log(toDotCase('real-house-wives', '-')); // real.house.wives
+console.log(toDotCase('real house wives', ' ')); // real.house.wives

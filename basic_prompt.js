@@ -1,0 +1,24 @@
+/**
+ * Converts a string to camelCase format.
+ * 
+ * Rules:
+ * - The first word should be lowercase
+ * - Each subsequent word should have its first letter capitalized
+ * - Remove all spaces and special characters (keep only alphanumeric)
+ * - If input is empty or null, return empty string
+ * 
+ * Example:
+ * toCamelCase("hello world") → "helloWorld"
+ * toCamelCase("convert this string") → "convertThisString"
+ * toCamelCase("already camelCase") → "alreadyCamelcase"
+ * 
+ * @param {string} str - The input string to convert
+ * @returns {string} - The camelCase version of the string
+ */
+function toCamelCase(str) {
+    // Implementation goes here
+}
+
+function divNumber(a, b) {
+    return a / b;
+}
